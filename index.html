@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="FaviconIcon.png">
+  </head>
+  <body>
+    <center><h1>CALCULATOR</h1></center>
+    <table class="calculator">
+      <tr>
+        <td colspan="3">
+          <input type="text" class="displaybox" id="result" disabled />
+        </td>
+        <td>
+          <input type="button" value="c" id="btn" onclick="clearScreen()" />
+        </td>
+      </tr>
+      <tr>
+        <td><input type="button" value="1" onclick="display(1)" /></td>
+        <td><input type="button" value="2" onclick="display(2)" /></td>
+        <td><input type="button" value="3" onclick="display(3)" /></td>
+        <td>
+          <input
+            class="operators"
+            type="button"
+            value="/"
+            onclick="display('/')" />
+        </td>
+      </tr>
+      <tr>
+        <td><input type="button" value="4" onclick="display(4)" /></td>
+        <td><input type="button" value="5" onclick="display(5)" /></td>
+        <td><input type="button" value="6" onclick="display(6)" /></td>
+        <td>
+          <input
+            class="operators"
+            type="button"
+            value="-"
+            onclick="display('-')" />
+        </td>
+      </tr>
+      <tr>
+        <td><input type="button" value="7" onclick="display(7)" /></td>
+        <td><input type="button" value="8" onclick="display(8)" /></td>
+        <td><input type="button" value="9" onclick="display(9)" /></td>
+        <td>
+          <input
+            class="operators"
+            type="button"
+            value="+"
+            onclick="display('+')" />
+        </td>
+      </tr>
+      <tr>
+        <td><input type="button" value="." onclick="display('.')" /></td>
+        <td><input type="button" value="0" onclick="display(0)" /></td>
+        <td>
+          <input type="button" value="=" id="btn" onclick="calculate()" />
+        </td>
+        <td>
+          <input
+            class="operators"
+            type="button"
+            value="*"
+            onclick="display('*')" />
+        </td>
+      </tr>
+    </table>
+
+    <script>
+      function display(value) {
+        document.getElementById("result").value += value;
+      }
+
+      function calculate() {
+        try {
+          document.getElementById("result").value = eval(
+            document.getElementById("result").value
+          );
+        } catch (error) {
+          document.getElementById("result").value = "Error";
+        }
+      }
+
+      function clearScreen() {
+        document.getElementById("result").value = "";
+      }
+
+      // Keyboard input
+      document.addEventListener("keydown", function (event) {
+        const key = event.key;
+        const operators = ["+", "-", "*", "/"];
+
+        if (!isNaN(key) || key === "." || operators.includes(key)) {
+          display(key);
+        } else if (key === "Enter") {
+          calculate();
+        } else if (key === "Escape" || key === "Backspace" || key === "c") {
+          clearScreen();
+        }
+      });
+    </script>
+  </body>
+</html>
